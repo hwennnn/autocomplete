@@ -75,7 +75,8 @@ const ControlledAutoComplete = () => {
       multiple={true}
       onChange={onValueChange}
       description={
-        "Selected values (controlled from parent): " + value.join(", ")
+        "Selected values (controlled from parent): " +
+        value.map((value) => `${value.label} (${value.value})`).join(", ")
       }
       renderOption={(option, isSelected, onSelect) => {
         return (
