@@ -69,7 +69,7 @@ const ControlledAutoComplete = () => {
   // Note: Both value and onChange are required for controlled component
   return (
     <Autocomplete
-      label="Controlled component"
+      label="Controlled component + Custom render"
       options={fruitOptions}
       value={value}
       multiple={true}
@@ -77,6 +77,15 @@ const ControlledAutoComplete = () => {
       description={
         "Selected values (controlled from parent): " + value.join(", ")
       }
+      renderOption={(option, isSelected, onSelect) => {
+        return (
+          <div className="p-2 hover:bg-slate-300" onClick={onSelect}>
+            {option}
+
+            {isSelected ? " (Selected)" : ""}
+          </div>
+        );
+      }}
     />
   );
 };

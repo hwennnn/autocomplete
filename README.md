@@ -19,7 +19,7 @@ The `Autocomplete` component accepts the following props:
 | `onInputChange` | `(inputValue: string) => void`                           | Callback function invoked when the input value changes.                      |
 | `options`       | `T[]`                                                   | An array of options to be displayed and selected.  <br/><br/> Note: T either can be either a `string` or an object (with a compulsory `label` field).                                   |
 | `placeholder`   | `string`                                                | Placeholder text displayed when no option is selected.                       |
-| `renderOption`  | `(option: T, isActive: boolean, isSelected: boolean, onSelect: () => void) => JSX.Element` | Custom renderer for each option in the dropdown.      <br/><br/> Note: `isActive` indicates if the item is hovered/highlighted in the dropdown. `isSelected` indicates if the option is currently selected. `onSelect` is a callback function when the item is selected.                   |
+| `renderOption`  | `(option: T, isSelected: boolean, onSelect: () => void) => JSX.Element` | Custom renderer for each option in the dropdown.      <br/><br/> Note: `isSelected` indicates if the option is currently selected. `onSelect` is a callback function when the item is selected.                   |
 
 **Note:** The `options` prop is mandatory.
 

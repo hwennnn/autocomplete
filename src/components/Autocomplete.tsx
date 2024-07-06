@@ -43,7 +43,6 @@ type AutocompleteProps<T extends OptionType> = (
   placeholder?: string;
   renderOption?: (
     option: T,
-    isActive: boolean,
     isSelected: boolean,
     onSelect: () => void
   ) => JSX.Element;
@@ -281,7 +280,6 @@ const Autocomplete = <T extends OptionType>({
 
               <div className="max-h-72 flex flex-col">
                 {filteredOptions.map((item, index) => {
-                  const isActive = activeIndex === index;
                   const isItemSelected = isSelected(item);
 
                   const onSelect = () => {
@@ -294,7 +292,7 @@ const Autocomplete = <T extends OptionType>({
                   };
 
                   return renderOption ? (
-                    renderOption(item, isActive, isItemSelected, onSelect)
+                    renderOption(item, isItemSelected, onSelect)
                   ) : (
                     <OptionItem
                       {...getItemProps({
@@ -304,7 +302,6 @@ const Autocomplete = <T extends OptionType>({
                         onClick: onSelect,
                       })}
                       key={index}
-                      isActive={isActive}
                       isMultiple={multiple}
                       isSelected={isItemSelected}
                     >
