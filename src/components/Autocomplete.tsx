@@ -16,13 +16,13 @@ import OptionChips from "./OptionChips";
 import OptionItem from "./OptionItem";
 import { OptionType } from "./types";
 
-// Define a type for props when `value` and `onChange` are both present
+// Define a type for props when `value` and `onChange` are both present, for controlled components
 interface ControlledValueProps<T extends OptionType> {
   value: T | T[];
   onChange: (value: T | T[]) => void;
 }
 
-// Define a type for props when `value` and `onChange` are both absent
+// Define a type for props when `value` and `onChange` are both absent, for uncontrolled components
 interface UncontrolledValueProps {
   value?: never;
   onChange?: never;
@@ -43,8 +43,9 @@ type AutocompleteProps<T extends OptionType> = (
   placeholder?: string;
   renderOption?: (
     option: T,
-    active: boolean,
-    isSelected: boolean
+    isActive: boolean,
+    isSelected: boolean,
+    onSelect: () => void
   ) => JSX.Element;
 };
 
@@ -272,7 +273,7 @@ const Autocomplete = <T extends OptionType>({
                   ...floatingStyles,
                 },
               })}
-              className="bg-gray-200 text-black overflow-y-auto mt-2 border-none"
+              className="bg-gray-100 text-black overflow-y-auto mt-2 border-none"
             >
               {filteredOptions.length === 0 && (
                 <p className="p-4">No results found.</p>
@@ -283,25 +284,27 @@ const Autocomplete = <T extends OptionType>({
                   const isActive = activeIndex === index;
                   const isItemSelected = isSelected(item);
 
+                  const onSelect = () => {
+                    handleOptionSelect(item);
+                    if (!multiple) {
+                      setIsOpen(false);
+                    }
+
+                    refs.domReference.current?.focus(); // Focus on the input field
+                  };
+
                   return renderOption ? (
-                    renderOption(item, isActive, isItemSelected)
+                    renderOption(item, isActive, isItemSelected, onSelect)
                   ) : (
                     <OptionItem
                       {...getItemProps({
                         ref: (node) => {
                           listRef.current[index] = node;
                         },
-                        onClick: () => {
-                          handleOptionSelect(item);
-                          if (!multiple) {
-                            setIsOpen(false);
-                          }
-
-                          refs.domReference.current?.focus(); // Focus on the input field
-                        },
+                        onClick: onSelect,
                       })}
                       key={index}
-                      active={isActive}
+                      isActive={isActive}
                       isMultiple={multiple}
                       isSelected={isItemSelected}
                     >
