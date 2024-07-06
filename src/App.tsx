@@ -80,7 +80,11 @@ const ControlledAutoComplete = () => {
       }
       renderOption={(option, isSelected, onSelect) => {
         return (
-          <div className="p-2 hover:bg-slate-300" onClick={onSelect}>
+          <div
+            key={option.label}
+            className="p-2 hover:bg-slate-300"
+            onClick={onSelect}
+          >
             {`${option.label} (${option.value})`}
 
             {isSelected ? " (Selected)" : ""}
