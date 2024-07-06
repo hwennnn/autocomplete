@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Autocomplete from "./components/Autocomplete";
-import { countryOptions, fruitOptions } from "./data";
+import { Country, countryOptions, fruitOptions } from "./data";
 
 const DebounceSearch = () => {
   const [formattedOptions, setFormattedOptions] = useState<string[]>([]);
@@ -56,9 +56,9 @@ const DebounceSearch = () => {
 };
 
 const ControlledAutoComplete = () => {
-  const [value, setValue] = useState<string[]>([]);
+  const [value, setValue] = useState<Country[]>([]);
 
-  const onValueChange = (value: string | string[]) => {
+  const onValueChange = (value: Country | Country[]) => {
     if (Array.isArray(value)) {
       setValue(value);
     } else {
@@ -70,7 +70,7 @@ const ControlledAutoComplete = () => {
   return (
     <Autocomplete
       label="Controlled component + Custom render"
-      options={fruitOptions}
+      options={countryOptions}
       value={value}
       multiple={true}
       onChange={onValueChange}
@@ -80,7 +80,7 @@ const ControlledAutoComplete = () => {
       renderOption={(option, isSelected, onSelect) => {
         return (
           <div className="p-2 hover:bg-slate-300" onClick={onSelect}>
-            {option}
+            {`${option.label} (${option.value})`}
 
             {isSelected ? " (Selected)" : ""}
           </div>

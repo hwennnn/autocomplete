@@ -1,4 +1,4 @@
-interface Country {
+export interface Country {
   label: string;
   name: string;
   value: string;
