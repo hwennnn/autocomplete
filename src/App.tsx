@@ -78,12 +78,14 @@ const ControlledAutoComplete = () => {
         "Selected values (controlled from parent): " +
         value.map((value) => `${value.label} (${value.value})`).join(", ")
       }
-      renderOption={(option, isSelected, onSelect) => {
+      renderOption={(option, isActive, isSelected) => {
         return (
           <div
             key={option.label}
-            className="p-2 hover:bg-slate-300"
-            onClick={onSelect}
+            className="p-2"
+            style={{
+              backgroundColor: isActive ? "lightgray" : "white",
+            }}
           >
             {`${option.label} (${option.value})`}
 

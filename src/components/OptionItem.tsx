@@ -3,13 +3,14 @@ import { forwardRef, useId } from "react";
 interface ItemProps {
   children: React.ReactNode;
   isSelected: boolean;
+  isActive: boolean;
   isMultiple?: boolean;
 }
 
 const OptionItem = forwardRef<
   HTMLDivElement,
   ItemProps & React.HTMLProps<HTMLDivElement>
->(({ children, isMultiple, isSelected, ...rest }, ref) => {
+>(({ children, isMultiple, isSelected, isActive, ...rest }, ref) => {
   const id = useId();
 
   return (
@@ -18,10 +19,11 @@ const OptionItem = forwardRef<
       role="option"
       aria-selected={isSelected}
       {...rest}
-      className="flex-row justify-between flex items-center text-sm gap-2 hover:bg-slate-300 p-2 cursor-default"
       style={{
+        background: isActive ? "lightblue" : "none",
         ...rest.style,
       }}
+      className="flex-row justify-between flex items-center text-sm gap-2 p-2 cursor-default"
     >
       {children}
 
